@@ -3,15 +3,15 @@
 struct BlackHole {
     float distance;
     float angle;
-    float shawrzschildRadius;
+    float schwarzschildRadius;
     float photonSphere;
     float accretionDisk;
 
-    BlackHole(float distance, float angle, float shawrzschildRadius) {
+    BlackHole(float distance, float angle, float schwarzschildRadius) {
         this->distance = distance;
         this->angle = angle;
-        this->shawrzschildRadius = shawrzschildRadius;
-        this->photonSphere = shawrzschildRadius + 2;
-        this->accretionDisk = shawrzschildRadius + 5;
+        this->schwarzschildRadius = schwarzschildRadius;
+        this->photonSphere = schwarzschildRadius * 1.5;
+        this->accretionDisk = schwarzschildRadius * 3;
     }
 };

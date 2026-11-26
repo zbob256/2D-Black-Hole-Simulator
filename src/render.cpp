@@ -84,17 +84,15 @@ void initRender() {
 
     glBindVertexArray(0);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     shaderProgram = createShaderProgram();
 }
 
-void render(const BlackHole& blackHole) {
-    glClearColor(0.f, 0.f, 0.04f, 1.f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    float x = blackHole.distance * cos(blackHole.angle);
-    float y = blackHole.distance * sin(blackHole.angle);
-
+void drawCircle(float x, float y, float radius, float r, float g, float b, float a) {
     const int segments = 100;
+
     float vertices[(segments + 2) * 2];
 
     vertices[0] = x;
@@ -103,8 +101,8 @@ void render(const BlackHole& blackHole) {
     for (int i = 0; i <= segments; i++) {
         float theta = (2.0f * M_PI * i) / segments;
 
-        vertices[(i + 1) * 2] = x + blackHole.shawrzschildRadius * cos(theta);
-        vertices[(i + 1) * 2 + 1] = y + blackHole.shawrzschildRadius * sin(theta);
+        vertices[(i + 1) * 2] = x + radius * cos(theta);
+        vertices[(i + 1) * 2 + 1] = y + radius * sin(theta);
     }
 
     glBindVertexArray(VAO);
@@ -113,7 +111,28 @@ void render(const BlackHole& blackHole) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
     glUseProgram(shaderProgram);
+
+    GLint colorLoc = glGetUniformLocation(shaderProgram, "circleColor");
+    glUniform4f(colorLoc, r, g, b, a);
+
     glDrawArrays(GL_TRIANGLE_FAN, 0, segments + 2);
+}
+
+void render(const BlackHole& blackHole) {
+    float x = blackHole.distance * cos(blackHole.angle);
+    float y = blackHole.distance * sin(blackHole.angle);
+
+    for (int i = 0; i < 10; i++) {
+        drawCircle(x, y, blackHole.accretionDisk * (1 - i / 35.f), 0.95f, 0.4f, 0.f, 0.1f + i / 10.f);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        drawCircle(x, y, blackHole.accretionDisk * (0.8 - i / 25.f), 0.f, 0.f, 0.f, 0.5f + (i / 10.f));
+    }
+    
+    drawCircle(x, y, blackHole.photonSphere, 1.f, 1.f, 1.f, 1.f);
+    drawCircle(x, y, blackHole.photonSphere - blackHole.photonSphere / 75, 0.f, 0.f, 0.f, 1.f);
+
 
     glBindVertexArray(0);
 }

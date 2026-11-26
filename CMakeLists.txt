@@ -22,6 +22,7 @@ add_executable(2D-Black-Hole-Simulator
 
 target_compile_definitions(2D-Black-Hole-Simulator PRIVATE
     SHADER_DIR="${CMAKE_CURRENT_SOURCE_DIR}/shaders"
+    ASSET_DIR="${CMAKE_CURRENT_SOURCE_DIR}/assets"
 )
 
 target_include_directories(2D-Black-Hole-Simulator PUBLIC include)

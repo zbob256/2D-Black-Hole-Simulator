@@ -1,8 +1,15 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 #include "render.hpp"
 #include "blackHole.hpp"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "external/stb_image.h"
+
+const int WIDTH = 800;
+const int HEIGHT = 800;
 
 int main() {
     if (!glfwInit()) {
@@ -13,11 +20,23 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "2D Black Hole Simulator", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "2D Black Hole Simulator", nullptr, nullptr);
 
     if (!window) {
         glfwTerminate();
         return -1;
+    }
+
+    GLFWimage icon;
+    icon.pixels = stbi_load(ASSET_DIR "/icon.png", &icon.width, &icon.height, nullptr, 4);
+
+    if (icon.pixels) {
+        glfwSetWindowIcon(window, 1, &icon);
+        stbi_image_free(icon.pixels);
+    }
+    else {
+        std::cerr << "Failed to load window icon: "
+                << stbi_failure_reason() << '\n';
     }
 
     glfwMakeContextCurrent(window);
@@ -28,14 +47,24 @@ int main() {
         return -1;
     }
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, WIDTH, HEIGHT);
 
-    BlackHole SagittariusA{0, 0, 0.1}; // chang to 12e6
+    // float schwarzschildRadius = (2 * G * M) / c * c;  // should equal 12e6
+    BlackHole SagittariusA{0.8, M_PI, 0.06};
+    BlackHole PhoenixA{0.4, M_PI / 6, 0.1};
+
+    std::vector blackHoles = {SagittariusA, PhoenixA};
 
     initRender();
     
     while (!glfwWindowShouldClose(window)) {
-        render(SagittariusA);
+        glClearColor(0.f, 0.f, 0.04f, 1.f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+
+        for (BlackHole &blackHole : blackHoles) {
+            render(blackHole);
+        }
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
