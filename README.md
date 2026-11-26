@@ -19,13 +19,17 @@ Essential Question: *What path does a light ray take as it approaches different 
 
 *You can add more in [blackHoleData.json](blackHoleData.json)*
 
-## Einstein's Field Equations & The Schwarschild Metric
+## Einstein's Field Equations & The Schwarzschild Metric
 
 ## Geodesics Solver
 
 ## Runga-Kutta 4
 
 ## Calculating Radii
+
+## Avoiding a Quasi-Static Simulation
+
+## Hawking Radiation
 
 ## Gallery
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
