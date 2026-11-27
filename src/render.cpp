@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include "config.hpp"
 
 GLuint VAO, VBO;
 GLuint shaderProgram;
@@ -119,19 +120,23 @@ void drawCircle(float x, float y, float radius, float r, float g, float b, float
 }
 
 void render(const BlackHole& blackHole) {
-    float x = blackHole.distance * cos(blackHole.angle);
-    float y = blackHole.distance * sin(blackHole.angle);
+    float accretionDisk = static_cast<float>(blackHole.accretionDisk / UNIVERSE_SIZE);
+    float photonSphere = static_cast<float>(blackHole.photonSphere / UNIVERSE_SIZE);
+    float distance = static_cast<float>(blackHole.distance / UNIVERSE_SIZE);
+
+    float x = distance * cos(blackHole.angle);
+    float y = distance * sin(blackHole.angle);
 
     for (int i = 0; i < 10; i++) {
-        drawCircle(x, y, blackHole.accretionDisk * (1 - i / 35.f), 0.95f, 0.4f, 0.f, 0.1f + i / 10.f);
+        drawCircle(x, y, accretionDisk * (1 - i / 35.f), 0.95f, 0.4f, 0.f, 0.1f + i / 10.f);
     }
 
     for (int i = 0; i < 5; i++) {
-        drawCircle(x, y, blackHole.accretionDisk * (0.8 - i / 25.f), 0.f, 0.f, 0.f, 0.5f + (i / 10.f));
+        drawCircle(x, y, accretionDisk * (0.8 - i / 25.f), 0.f, 0.f, 0.f, 0.5f + (i / 10.f));
     }
     
-    drawCircle(x, y, blackHole.photonSphere, 1.f, 1.f, 1.f, 1.f);
-    drawCircle(x, y, blackHole.photonSphere - blackHole.photonSphere / 75, 0.f, 0.f, 0.f, 1.f);
+    drawCircle(x, y, photonSphere, 1.f, 1.f, 1.f, 1.f);
+    drawCircle(x, y, photonSphere * 0.99, 0.f, 0.f, 0.f, 1.f);
 
 
     glBindVertexArray(0);

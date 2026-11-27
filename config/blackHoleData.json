@@ -1,0 +1,8 @@
+{
+    "SagittariusA": {
+        "solarMass":4.3e6,
+        "distanceFromCenter":0.2,
+        "degrees":30,
+        "show":true
+    }
+}

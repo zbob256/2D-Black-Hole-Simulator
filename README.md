@@ -10,7 +10,7 @@ Essential Question: *What path does a light ray take as it approaches different 
 - C++17 or newer
 - CMake 3.20 or newer
 - Git
-- Graphics driver supporting OpenGl 3.3 or newer
+- Graphics driver supporting OpenGL 3.3 or newer
 
 ### Clone
 ```bash
@@ -72,6 +72,8 @@ Linux & macOS:
 ## Avoiding a Quasi-Static Simulation
 
 ## Hawking Radiation
+
+## Temperature from Mass
 
 ## Gallery
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">

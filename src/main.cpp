@@ -1,7 +1,6 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <vector>
 #include "render.hpp"
 #include "blackHole.hpp"
 #include "config.hpp"
@@ -24,6 +23,7 @@ int main() {
 
     if (!window) {
         glfwTerminate();
+        std::cout << "Failed to create window\n";
         return -1;
     }
 
@@ -51,21 +51,16 @@ int main() {
 
     glViewport(0, 0, WIDTH, HEIGHT);
 
-    long double SagAr_s = 4.3e6L * SOLAR_MASS; // make all this from BHDjson
-    long double sagAr_sProp = SagAr_s / UNIVERSE_SIZE;
-    BlackHole SagittariusA{0.f, 0, sagAr_sProp};
-
-    std::vector blackHoles = {SagittariusA};
-
     initRender();
     
     while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.f, 0.f, 0.1f, 1.f);
+        glClearColor(0.f, 0.f, 0.1f, 1.f); // add to config
         glClear(GL_COLOR_BUFFER_BIT);
 
-
         for (BlackHole &blackHole : blackHoles) {
-            render(blackHole);
+            if (blackHole.visible) {
+                render(blackHole);
+            }
         }
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
