@@ -4,14 +4,14 @@
 #include <vector>
 #include "render.hpp"
 #include "blackHole.hpp"
+#include "config.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "external/stb_image.h"
-
-const int WIDTH = 800;
-const int HEIGHT = 800;
+#include "stb_image.h"
 
 int main() {
+    collectJSON();
+
     if (!glfwInit()) {
         return -1;
     }
@@ -47,12 +47,13 @@ int main() {
         return -1;
     }
 
+    glfwSwapInterval(1);
+
     glViewport(0, 0, WIDTH, HEIGHT);
 
-    const long double UNIVERSE_SIZE_KM = 1e8;
-    long double SagAr_s = 4.3e6L * SOLAR_MASS;
-    long double sagAr_sProp = SagAr_s / UNIVERSE_SIZE_KM;
-    BlackHole SagittariusA{0.f, 0, 4.3e6L * SOLAR_MASS};
+    long double SagAr_s = 4.3e6L * SOLAR_MASS; // make all this from BHDjson
+    long double sagAr_sProp = SagAr_s / UNIVERSE_SIZE;
+    BlackHole SagittariusA{0.f, 0, sagAr_sProp};
 
     std::vector blackHoles = {SagittariusA};
 

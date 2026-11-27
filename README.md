@@ -43,6 +43,9 @@ Linux & macOS:
 ./build/2D-Black-Hole-Simulator
 ```
 
+## Usage
+
+
 
 ## Black Holes included in project:
 - Sagittarius A
