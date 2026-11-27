@@ -49,16 +49,16 @@ int main() {
 
     glViewport(0, 0, WIDTH, HEIGHT);
 
-    // float schwarzschildRadius = (2 * G * M) / c * c;  // should equal 12e6
-    BlackHole SagittariusA{0.8, M_PI, 0.06};
-    BlackHole PhoenixA{0.4, M_PI / 6, 0.1};
+    BlackHole SagittariusA{0.f, 0, 4.3e6L * SOLAR_MASS};
 
-    std::vector blackHoles = {SagittariusA, PhoenixA};
+    std::cout << calculateSchwarzschildRadius(SagittariusA.mass) << std::endl;
+
+    std::vector blackHoles = {SagittariusA};
 
     initRender();
     
     while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.f, 0.f, 0.04f, 1.f);
+        glClearColor(0.f, 0.f, 0.1f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
 

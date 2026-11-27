@@ -5,6 +5,45 @@
 
 Essential Question: *What path does a light ray take as it approaches different non-spinning black holes?*
 
+## Setup (instead of downloading release)
+### Prerequisites
+- C++17 or newer
+- CMake 3.20 or newer
+- Git
+- Graphics driver supporting OpenGl 3.3 or newer
+
+### Clone
+```bash
+git clone https://github.com/zbob256/2D-Black-Hole-Simulator.git
+cd 2D-Black-Hole-Simulator
+```
+### Build
+```bash
+cmake -S . -B build
+```
+
+### Compile
+```bash
+cmake --build build --config Release
+```
+
+### Run
+Windows (MinGW):
+```bash
+./build/2D-Black-Hole-Simulator.exe
+```
+
+Windows (Visual Studio):
+```bash
+./build/Release/2D-Black-Hole-Simulator.exe
+```
+
+Linux & macOS:
+```bash
+./build/2D-Black-Hole-Simulator
+```
+
+
 ## Black Holes included in project:
 - Sagittarius A
 - Meisser 87
