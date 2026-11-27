@@ -3,8 +3,6 @@
 #include "physics.hpp"
 #include <cmath>
 
-const long double UNIVERSE_SIZE_KM = 1e11;
-
 struct BlackHole {
     float distance;
     float angle;
@@ -17,7 +15,7 @@ struct BlackHole {
         this->distance = distance;
         this->angle = angle * (M_PI / 180);
         this->mass = mass;
-        this->schwarzschildRadius = calculateSchwarzschildRadius(mass) / UNIVERSE_SIZE_KM;
+        this->schwarzschildRadius = calculateSchwarzschildRadius(mass);
         this->photonSphere = schwarzschildRadius * 1.5;
         this->accretionDisk = schwarzschildRadius * 3;
     }

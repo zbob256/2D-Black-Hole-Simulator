@@ -49,9 +49,10 @@ int main() {
 
     glViewport(0, 0, WIDTH, HEIGHT);
 
+    const long double UNIVERSE_SIZE_KM = 1e8;
+    long double SagAr_s = 4.3e6L * SOLAR_MASS;
+    long double sagAr_sProp = SagAr_s / UNIVERSE_SIZE_KM;
     BlackHole SagittariusA{0.f, 0, 4.3e6L * SOLAR_MASS};
-
-    std::cout << calculateSchwarzschildRadius(SagittariusA.mass) << std::endl;
 
     std::vector blackHoles = {SagittariusA};
 

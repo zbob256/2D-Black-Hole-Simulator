@@ -5,5 +5,6 @@ constexpr long double C = 299792458.L;
 constexpr long double SOLAR_MASS = 1.98847e30;
 
 inline long double calculateSchwarzschildRadius(long double mass) {
-    return (2.0L * G * mass) / (C * C);
+    long double meters = (2.L * G * mass) / (C * C);
+    return meters / 1000.L;
 }
